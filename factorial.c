@@ -30,7 +30,7 @@ void * factorial(int numero)
   printf("%d! = %d \n", numero, result);
   pthread_mutex_unlock(&signalLock);		
   
-  //pthread_exit(0);
+  pthread_exit(0);
 }
   
 int main(int argc, char **argv)
@@ -44,11 +44,12 @@ int main(int argc, char **argv)
     {
         sscanf (argv[i+1], "%i", &num);
         pthread_create(&id[i],NULL,factorial,(void *) num);
+        pthread_join(id[i],&ret);  
     }
 
-    for(i=0; i<argc; i++)
+   /* for(i=0; i<argc; i++)
     {    
         pthread_join(id[i],&ret);   
-    }
+    }*/
     return 0;
 }
